@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_appointment_letter_form" model="ir.ui.view">
+            <field name="name">appointment.letter.form</field>
+            <field name="model">appointment.letter</field>
+            <field name="arch" type="xml">
+                <form string="Appointment Letter">
+                    <header>
+                        <button id="button_verify" name="action_verify" string="Verify" class="oe_highlight"
+                                attrs="{'invisible': [('status', '!=', 'draft') ]}"
+                                status="draft"
+                                type="object"/>
+
+                        <button id="button_done" name="action_done" string="Mark as done" class="oe_highlight"
+                                attrs="{'invisible': [('status', '!=', 'verified') ]}"
+                                status="verified"
+                                type="object"/>
+
+                        <button id="button_cancel" name="action_cancel" string="cancel" class="oe_highlight"
+                                status="cancelld"  attrs="{'invisible': [('status', '!=', 'draft')]}"
+                                type="object"/>
+
+
+                        <button id="button_action" name="action_create_employee" string="Add to Employee"
+                                class="btn-primary" attrs="{'invisible': [('employee_id', '!=', False)]}"
+                                type="object"/>
+
+
+
+                        <button id="button_apply" name="apply_rules" string="Apply rules"
+                                class="btn-primary" attrs="{'invisible': [('status', 'in', ['done', 'cancelled'])]}"
+                                type="object"/>
+
+                        <button name="action_send_mail" string="Send Mail" class="oe_highlight"
+                                data-hotkey="m" type="object"  attrs="{'invisible': [('status', '!=', 'done') ]}"/>
+
+
+                        <field name="status" widget="statusbar" statusbar_visible="draft,verified,done,canceled"/>
+
+
+                    </header>
+
+                    <sheet>
+                        <div class="o_employee_avatar">
+                            <field name="image_128" widget='image' class="oe_avatar m-0"
+                                   options='{"zoom": true, "preview_image":"avatar_128"}'/>
+
+                        </div>
+                         <div name="button_box" class="oe_button_box">
+                        </div>
+                        <widget name="web_ribbon" title="Done" bg_color="bg-success" attrs="{'invisible': [('status', '!=', 'done')]}"/>
+
+                        <div name="button_box" class="oe_button_box">
+                        </div>
+                        <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('status', '!=', 'cancelled')]}"/>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="name_id"/>
+                                <field name="company_id"/>
+                                <field name='mail'/>
+                                <field name="appointment_date"/>
+                                <field name="hr_id"/>
+                                <field name="user_id"/>
+                                <field name="work_phone"/>
+                                <field name="mobile_phone"/>
+
+                            </group>
+
+                            <group>
+                                <field name="job_id"/>
+                                <field name="salary"/>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+
+                                    <field name="street" placeholder="Street 1..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                           options='{"no_open": True}'/>
+                                    <field name="pincode" placeholder="Pincode" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="country" class="o_address_country"/>
+
+
+                                </div>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                                <field name="employee_id"/>
+
+
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string='Rules'>
+                                <field name="rule_ids">
+                                    <tree editable="bottom">
+                                        <field name="company_rule_id"/>
+                                        <field name="name"/>
+                                        <field name="description"/>
+
+                                    </tree>
+
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_appointment_letter_kanban" model="ir.ui.view">
+            <field name="name">appointment.letter.kanban</field>
+            <field name="model">appointment.letter</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column">
+                    <field name="name_id"/>
+                    <field name="job_id"/>
+                    <field name="appointment_date"/>
+                    <field name="state_id"/>
+                    <field name="image_128"/>
+                    <field name="status"/>
+                    <templates>
+<!--                        <t t-name="kanban-box">-->
+<!--                            <div t-attf-class="oe_kanban_global_click o_kanban_record oe_kanban_#{record.state_id}">-->
+<!--                                <div class="o_kanban_image">-->
+<!--                                    &lt;!&ndash;                                    <img t-att-src="kanban_image('res.partner', 'image_128', record.name_id.raw_value)"/>&ndash;&gt;-->
+<!--                                    <img t-att_src="kanban_image('appointment.letter','image_128',record.id)"-->
+<!--                                         class="img img-fluid"/>-->
+<!--                                </div>-->
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                <field name="image_128" class="o_kanban_image_fill_left d-block"
+                                       preview_image="image_128"
+                                       widget="background_image" options="{'zoom': true, 'zoom_delay': 1000}"/>
+
+                            <div name="button_box" class="oe_button_box">
+
+                            </div>
+                        <widget name="web_ribbon" title="Done" bg_color="bg-success" attrs="{'invisible': [('status', '!=', 'done')]}"/>
+                                <div name="button_box" class="oe_button_box">
+
+                                </div>
+                                <widget name="web_ribbon" title="cancelled" bg_color="bg-danger"
+                                        attrs="{'invisible': [('status', '!=', 'cancelled')]}"/>
+
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <field name="name_id"/>
+                                    </strong>
+                                    <div>
+                                        <field name="job_id"/>
+                                    </div>
+                                    <!--                                    <div>-->
+                                    <!--                                        <field name="name_id"/>-->
+                                    <!--                                    </div>-->
+                                    <div>
+                                        <field name="appointment_date"/>
+                                    </div>
+                                    <div>
+                                        <field name="state_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_appointment_letter_tree" model="ir.ui.view">
+            <field name="name">appointment.letter.tree</field>
+            <field name="model">appointment.letter</field>
+            <field name="arch" type="xml">
+                <tree string="Appointment Letters">
+                    <field name="name"/>
+                    <field name="name_id"/>
+                    <field name="company_id"/>
+                    <field name='mail'/>
+                    <field name="appointment_date"/>
+                    <field name="hr_id"/>
+                    <field name="user_id"/>
+                    <field name="work_phone"/>
+                    <field name="mobile_phone"/>
+                    <field name="job_id"/>
+                    <field name="salary"/>
+                    <field name="street"/>
+                    <field name="street2"/>
+                    <field name="city"/>
+                    <field name="state_id"/>
+                    <field name="pincode"/>
+                    <field name="tag_ids"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="action_appointment_letter" model="ir.actions.act_window">
+            <field name="name">Appointment Letter</field>
+            <field name="res_model">appointment.letter</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+
+        <record id="appointment_letter_compnay_rule" model="ir.rule">
+            <field name="name">Appointment company rule</field>
+            <field name="model_id" ref="model_appointment_letter"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

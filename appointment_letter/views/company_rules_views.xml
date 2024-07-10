@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_company_rules_tree" model="ir.ui.view">
+        <field name="name">company.rules.tree</field>
+        <field name="model">company.rules</field>
+        <field name="arch" type="xml">
+            <tree string="Company Rules">
+                <field name="name"/>
+                <field name="description"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_company_rules_form" model="ir.ui.view">
+        <field name="name">company.rules.form</field>
+        <field name="model">company.rules</field>
+        <field name="arch" type="xml">
+            <form string="Company Rules">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_company_rules" model="ir.actions.act_window">
+        <field name="name">Company Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">company.rules</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+</odoo>

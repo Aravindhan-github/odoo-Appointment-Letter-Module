@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_appointment_letter,appointment.letter,model_appointment_letter,,1,1,1,1
+access_company_rules,company.rules,model_company_rules,,1,1,1,1
+access_appointment_rule,appointment.rule,model_appointment_rule,,1,1,1,1
+access_appointment_tags,appointment.tag,model_appointment_tag,,1,1,1,1
+access_appointment_letter_hr_user,appointment.letter HR User,model_appointment_letter,group_appointment_letter_hr_user,1,1,1,1
+access_appointment_letter_manager,appointment.letter Manager,model_appointment_letter,group_appointment_letter_hr_user,1,1,1,1
+access_appointment_letter_admin,appointment.letter Admin,model_appointment_letter,group_appointment_letter_admin,1,1,1,1

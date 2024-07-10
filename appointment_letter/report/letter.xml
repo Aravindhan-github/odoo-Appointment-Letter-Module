@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<odoo>
+
+    <template id="appointment_letter_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page" style="font-size: 16px;">
+                    <div class="times-new-roman">
+                        <img src="https://media.licdn.com/dms/image/C510BAQHvbTIJj71oFg/company-logo_200_200/0/1630583380541?e=2147483647&amp;v=beta&amp;t=dY34l0Xf3JHLzLHkifYHS1nrBs-ttf-CeVVagKrsl7k"
+                             alt=" " height="300" width="300"/>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h1>Appointment Letter</h1>
+                    </div>
+
+                    <div>
+                        <p>
+                            <title>Appointment Letter</title>
+                            <br><t t-if="doc.name_id"><t t-esc="doc.name_id"/></t></br>
+                            <br><t t-if="doc.appointment_date"><t t-esc="doc.appointment_date.strftime('%d/%m/%Y')"/></t></br>
+                            <br><t t-if="doc.street"><t t-esc="doc.street"/></t></br>
+                            <br><t t-if="doc.city"><t t-esc="doc.city"/></t><t t-if="doc.pincode">-<t t-esc="doc.pincode"/></t></br>
+                            <br><t t-if="doc.state_id"><t t-esc="doc.state_id.name"/></t>,<t t-if="doc.country_id"><t t-esc="doc.country_id.name"/></t></br>
+                        </p>
+
+                        <h3>Subject: Appointment for post <t t-if="doc.job_id"><t t-esc="doc.job_id.name"/></t></h3>
+
+                        <h4>Dear <t t-if="doc.name_id"><t t-esc="doc.name_id"/></t>,</h4>
+
+                        <p>We are delighted to offer you with the opportunity of position <t t-if="doc.job_id"><t t-esc="doc.job_id.name"/></t> with <t t-if="doc.company_id"><t t-esc="doc.company_id.name"/></t>. You will be initially at Perungudi on joining.</p>
+
+                        <p>Your appointment is subject to the terms and condition set forth in "Annexure - A," as well as the company's current Rules and Regulations. Details on your salary and other allowances and perquisites are set forth in Annexure - B.</p>
+
+                        <p>We hope to offer you challenging and rewarding career certify a high level of job satisfaction and ample opportunities for career development.</p>
+
+                        <p>Please sign the duplicate copy of this letter as an acceptance of our offer of position, together with the terms of appointment Annexure - A , details of perquisites Annexure - B , details of your remuneration Annexure - C, and the duty you performed.</p>
+
+                        <br/>
+                        <p>With best wishes,</p>
+                        <p>Name: <t t-if="doc.hr_id"><t t-esc="doc.hr_id.name"/></t></p>
+                        <p>Chief Executive Officer</p>
+                    </div>
+                </div>
+
+                <div class="page times-new-roman" style="page-break-before:always;">
+                    <t t-if="doc.rule_ids">
+                        <h3>Company Rule Details</h3>
+                        <t t-foreach="doc.rule_ids" t-as="rule">
+                            <p>Rule Name: <t t-if="rule.name"><t t-esc="rule.name"/></t></p>
+                            <p>Rule Description: <t t-if="rule.description"><t t-esc="rule.description"/></t></p>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="report_appointment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="appointment_leter_template "/>
+                <h2>letter</h2>
+                <t t-esc="doc.name"/>
+            </t>
+        </t>
+    </template>
+</odoo>

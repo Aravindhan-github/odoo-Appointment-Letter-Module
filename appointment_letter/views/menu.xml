@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_appointment_letter_root" name="Appointment Letters" sequence="-40"/>
+
+        <menuitem id="menu_appointment_letter" name="Appointment Letters" parent="menu_appointment_letter_root"
+                  sequence="30"/>
+
+        <menuitem id="menu_appointment_letter_management" name="Manage Appointment Letters"
+                  parent="menu_appointment_letter"
+                  action="action_appointment_letter" sequence="20"/>
+        <menuitem id="menu_rules_root" name="configuration" parent="menu_appointment_letter_root" sequence="30"/>
+        <menuitem id="menu_configuration" name="Configuration" parent="menu_rules_root" sequence="40"/>
+        <menuitem id="menu_company_rules" name="Company Rules" parent="menu_configuration" action="action_company_rules" sequence="30"/>
+
+
+    </data>
+
+</odoo>

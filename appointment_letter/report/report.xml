@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <report
+       id="report_appointment_letter"
+       string="appointment_letter"
+       model="appointment.letter"
+       report_type="qweb-pdf"
+       name="appointment_letter.appointment_letter_template"
+       file="appointment_letter.appointmetn_letter"/>
+
+</odoo>
