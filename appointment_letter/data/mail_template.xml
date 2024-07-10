@@ -5,23 +5,11 @@
             <field name="name">Appointment Letter : Send by email</field>
             <field name="model_id" ref="appointment_letter.model_appointment_letter"/>
             <field name="email_from">{{ (object.user_id.email) }}</field>
-<!--            <field name="email_from">aravindhanm637@gmail.com</field>-->
-<!--            <field name="email_to">aravindhanm637@gmail.com</field>-->
-<!--              <field name="email_from">{{ (object.company_id.email) }}</field>-->
-            <!-- Set email_to dynamically (assuming employee has a work_email field) -->
+ 
             <field name="email_to">{{ (object.mail) }}</field>
             <field name="subject">Appointment Letter </field>
             <field name="body_html" type="html">
-<!--                <div style="margin:0px; padding: 0px;">-->
-<!--                    <p style="margin: 0px;padding: 0px; font-size : 13px;">-->
-<!--                         <h4>Dear  <t t-out="object.name_id"/></h4>-->
-<!--                      <t  Dear ${object.name}-->
-<!--                        Here is your Appointment Letter-->
-<!--                        <br /><br />-->
-<!--                        If you have queries feel free to ask-->
-
-<!--                    </p>-->
-<!--                </div>-->
+ 
                     <div style="margin:0px; padding: 0px;">
                         <p style="margin: 0px; padding: 0px; font-size: 13px;">
                             Dear  <t t-out="object.name_id"/>,
